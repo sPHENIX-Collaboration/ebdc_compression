@@ -1,14 +1,17 @@
 #!/bin/bash
 
-usage() { echo "Usage: $0 [-s <45|90>] [-p <string>]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-p <port>] [-n <portrange>]" 1>&2; exit 1; }
 
-while getopts ":s:p:" o; do
+port=12340
+portrange=8
+
+while getopts ":p:n:" o; do
     case "${o}" in
-        s)
-            s=${OPTARG}
-            ;;
         p)
-            p=${OPTARG}
+            port=${OPTARG}
+            ;;
+        n)
+            portrange=${OPTARG}
             ;;
         *)
             usage
@@ -17,5 +20,13 @@ while getopts ":s:p:" o; do
 done
 shift $((OPTIND-1))
 
-xterm -geometry 50x2 -T "ncat sink port " -e "ncat -lk 1234 --max-conns 100 | pv -brt > /dev/null"
+portrange_max=`expr ${portrange} - 1`
+
+# xterm -geometry 50x2 -T "ncat sink port " -e "ncat -lk 1234 --max-conns 100 | pv -brt > /dev/null"
+for i in $(seq 0 ${portrange_max})
+do 
+   this_port=`expr ${port} + ${i}`
+   xterm -geometry 40x2 -T "ncat sink port ${this_port}" -e "ncat -lk ${this_port} --max-conns 100 | pv -brt > /dev/null" &
+   echo  "ncat sink port ${this_port} started"
+done
 
