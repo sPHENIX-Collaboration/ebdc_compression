@@ -9,6 +9,8 @@ zipcmd='lz4'
 ziplevel=1
 sinkserver='localhost'
 
+workdir='./data/'
+
 while getopts ":f:s:p:j:n:z:l:" o; do
     case "${o}" in
         f)
@@ -39,7 +41,7 @@ while getopts ":f:s:p:j:n:z:l:" o; do
 done
 shift $((OPTIND-1))
 
-jobname="${zipcmd}-${ziplevel}-${job}"
+jobname="${workdir}/${zipcmd}-${ziplevel}-${job}"
 
 echo "folder = ${folder}"
 echo "port = ${port} - " `expr ${port} + ${portrange} - 1`
@@ -50,10 +52,10 @@ if [ -d "$jobname" ]
 then
     echo "Backup $jobname" 
     tar zcfv $jobname.tar.gz $jobname
-    rm -rf $jobname/*
+    rm -f $jobname/*
 else
     echo "Use directory $jobname"
-    mkdir $jobname
+    mkdir -pv $jobname
 fi
 # exit;
 
