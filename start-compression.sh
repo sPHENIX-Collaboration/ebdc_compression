@@ -63,7 +63,7 @@ fi
 
 lshw > ${jobname}/hardware.log 2>/dev/null
 
-find ${folder} -name "*.evt" |  parallel --joblog ${jobname}/parallel.log --progress -j${job} "cat {} | pv -btrnf -i 1000  2>>${jobname}/pv_in_{#}.log  | ${zipcmd} -${ziplevel} -c | pv -btrnf -i 1000  2>>${jobname}/pv_out_{#}.log  | ncat $sinkserver \`expr {#} % ${portrange} + ${port}\` "
+find ${folder} -name "*.evt" |  parallel --joblog ${jobname}/parallel.log --progress -j${job} "cat {} | pv -btrnf -i 10000  2>>${jobname}/pv_in_{#}.log  | ${zipcmd} -${ziplevel} -c | pv -btrnf -i 10000  2>>${jobname}/pv_out_{#}.log  | ncat $sinkserver \`expr {#} % ${portrange} + ${port}\` "
 # find ${folder} -name "*.evt" |  parallel --joblog ${jobname}/parallel.log --progress -j${job} "gzip -1 -vc {} 2>>zip{#}.log | ncat 127.0.0.1 \`expr {#} % ${portrange} + ${port}\` "
 # find ${folder} -name "*.evt" |  parallel --joblog parallel.log --progress -j${job} "echo lzop -1 -vc {} port \`expr {#} % ${portrange} + ${port}\` "
 
