@@ -1,6 +1,6 @@
 #!/bin/bash
 
-job=25
+job=48
 sinkserver='localhost'
 
 # xterm -geometry 50x2 -T "ncat sink port " -e "ncat -lk 1234 --max-conns 100 | pv -brt > /dev/null"
