@@ -3,7 +3,7 @@ usage() { echo "Usage: $0 [-f <folder>] [-s <sink server>] [-p <port>] [-j <job>
 
 folder='/mnt/nvme/fnal_June2019/beam'
 port=12340
-portrange=16
+portrange=8
 job=20
 zipcmd='lz4'
 ziplevel=1

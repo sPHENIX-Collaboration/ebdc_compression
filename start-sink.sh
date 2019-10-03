@@ -3,7 +3,7 @@
 usage() { echo "Usage: $0 [-p <port>] [-n <portrange>]" 1>&2; exit 1; }
 
 port=12340
-portrange=16
+portrange=8
 
 while getopts ":p:n:" o; do
     case "${o}" in
