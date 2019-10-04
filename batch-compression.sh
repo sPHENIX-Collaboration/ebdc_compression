@@ -1,6 +1,6 @@
 #!/bin/bash
 
-job=48
+job=25
 # sinkserver='localhost'
 sinkserver='192.168.82.45'
 
