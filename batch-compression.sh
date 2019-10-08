@@ -1,11 +1,11 @@
 #!/bin/bash
 
-job=25
+job=60
 # sinkserver='localhost'
 sinkserver='192.168.82.45'
 
 # xterm -geometry 50x2 -T "ncat sink port " -e "ncat -lk 1234 --max-conns 100 | pv -brt > /dev/null"
-for zipcmd in lz4 lzop gzip
+for zipcmd in lz4 lzop gzip bzip2
 do     
     
     for ziplevel in 1 2 3 5 7 9
